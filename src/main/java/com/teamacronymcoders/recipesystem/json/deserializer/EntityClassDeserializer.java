@@ -1,4 +1,4 @@
-package com.teamacronymcoders.base.json.deserializer;
+package com.teamacronymcoders.recipesystem.json.deserializer;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;

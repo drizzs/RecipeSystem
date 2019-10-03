@@ -1,7 +1,7 @@
-package com.teamacronymcoders.base.recipesystem.condition;
+package com.teamacronymcoders.recipesystem.recipe.condition;
 
 import com.teamacronymcoders.recipesystem.recipe.RecipeContainer;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 import javax.annotation.Nullable;
 
@@ -13,7 +13,7 @@ public class VillageCondition implements ICondition {
     }
 
     @Override
-    public boolean isMet(RecipeContainer recipeContainer, @Nullable EntityPlayer entityPlayer) {
+    public boolean isMet(RecipeContainer recipeContainer, @Nullable PlayerEntity entityPlayer) {
         return locatedInVillage(recipeContainer) == inVillage;
     }
 

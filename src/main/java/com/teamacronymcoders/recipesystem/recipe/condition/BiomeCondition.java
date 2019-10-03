@@ -1,8 +1,8 @@
-package com.teamacronymcoders.base.recipesystem.condition;
+package com.teamacronymcoders.recipesystem.recipe.condition;
 
 import com.google.gson.annotations.JsonAdapter;
 import com.teamacronymcoders.recipesystem.recipe.RecipeContainer;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
@@ -18,7 +18,7 @@ public class BiomeCondition implements ICondition {
     }
 
     @Override
-    public boolean isMet(RecipeContainer recipeContainer, @Nullable EntityPlayer entityPlayer) {
+    public boolean isMet(RecipeContainer recipeContainer, @Nullable PlayerEntity entityPlayer) {
         return recipeContainer.getWorld().isBlockLoaded(recipeContainer.getPos()) &&
                 (biome.equals(recipeContainer.getWorld().getBiome(recipeContainer.getPos()).getRegistryName()) == inBiome);
     }

@@ -1,12 +1,10 @@
-package com.teamacronymcoders.base.recipesystem.input;
+package com.teamacronymcoders.recipesystem.recipe.input;
 
 import com.google.gson.annotations.JsonAdapter;
-import com.teamacronymcoders.base.blocks.BlockStateMatcher;
-import com.teamacronymcoders.base.json.deserializer.BlockPosDeserializer;
-import com.teamacronymcoders.base.json.deserializer.BlockStateDeserializer;
-import com.teamacronymcoders.base.json.deserializer.BlockStateMatcherDeserializer;
+import com.teamacronymcoders.recipesystem.block.BlockStateMatcher;
+import com.teamacronymcoders.recipesystem.json.deserializer.BlockPosDeserializer;
+import com.teamacronymcoders.recipesystem.json.deserializer.BlockStateMatcherDeserializer;
 import com.teamacronymcoders.recipesystem.recipe.RecipeContainer;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 
 public class BlockStateInput implements IInput {
@@ -27,7 +25,7 @@ public class BlockStateInput implements IInput {
 
     @Override
     public void consume(RecipeContainer recipeContainer) {
-        recipeContainer.getWorld().setBlockToAir(handlePos(recipeContainer));
+        recipeContainer.getWorld().isAirBlock(handlePos(recipeContainer));
     }
 
     private BlockPos handlePos(RecipeContainer recipeContainer) {

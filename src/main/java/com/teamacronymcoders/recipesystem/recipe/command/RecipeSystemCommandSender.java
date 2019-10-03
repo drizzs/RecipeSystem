@@ -1,14 +1,14 @@
-package com.teamacronymcoders.base.recipesystem.command;
+package com.teamacronymcoders.recipesystem.recipe.command;
 
-import com.teamacronymcoders.base.recipesystem.RecipeContainer;
-import net.minecraft.command.ICommandSender;
+import com.teamacronymcoders.recipesystem.recipe.RecipeContainer;
+import net.minecraft.command.ICommandSource;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class RecipeSystemCommandSender implements ICommandSender {
+public class RecipeSystemCommandSender implements ICommandSource {
     private final RecipeContainer recipeContainer;
 
     public RecipeSystemCommandSender(RecipeContainer recipeContainer) {
@@ -35,6 +35,6 @@ public class RecipeSystemCommandSender implements ICommandSender {
     @Nullable
     @Override
     public MinecraftServer getServer() {
-        return recipeContainer.getWorld().getMinecraftServer();
+        return recipeContainer.getWorld().getServer();
     }
 }

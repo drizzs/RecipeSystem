@@ -1,7 +1,7 @@
-package com.teamacronymcoders.base.recipesystem.input;
+package com.teamacronymcoders.recipesystem.recipe.input;
 
 import com.teamacronymcoders.recipesystem.recipe.RecipeContainer;
-import com.teamacronymcoders.base.util.CapUtils;
+import com.teamacronymcoders.recipesystem.utils.CapUtils;
 import net.minecraftforge.energy.CapabilityEnergy;
 
 public class ForgeEnergyInput implements IInput {

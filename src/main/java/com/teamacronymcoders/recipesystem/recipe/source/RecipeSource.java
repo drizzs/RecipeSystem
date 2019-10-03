@@ -1,4 +1,4 @@
-package com.teamacronymcoders.base.recipesystem.source;
+package com.teamacronymcoders.recipesystem.recipe.source;
 
 public class RecipeSource implements IRecipeSource {
     private final String name;

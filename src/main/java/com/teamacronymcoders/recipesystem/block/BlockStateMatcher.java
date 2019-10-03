@@ -1,9 +1,9 @@
-package com.teamacronymcoders.base.blocks;
+package com.teamacronymcoders.recipesystem.block;
 
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.state.IProperty;
 
 import java.util.List;
 import java.util.Map;
@@ -21,12 +21,12 @@ public class BlockStateMatcher {
         this(block, Maps.newHashMap());
     }
 
-    public boolean matches(IBlockState blockState) {
-        if (block == blockState.getBlock()) {
-            for (IProperty<?> property: blockState.getPropertyKeys()) {
+    public boolean matches(BlockState state) {
+        if (block == state.getBlock()) {
+            for (IProperty<?> property: state.getProperties()) {
                 List<?> allowedValue = allowedValues.get(property);
                 if (allowedValue != null) {
-                    if (!allowedValue.contains(blockState.getValue(property))) {
+                    if (!allowedValue.contains(state.get(property))) {
                         return false;
                     }
                 }

@@ -1,10 +1,10 @@
-package com.teamacronymcoders.base.recipesystem.event;
+package com.teamacronymcoders.recipesystem.recipe.event;
 
 import com.google.common.collect.Maps;
-import com.teamacronymcoders.base.json.factory.DefaultObjectFactory;
-import com.teamacronymcoders.base.json.factory.IObjectFactory;
+import com.teamacronymcoders.recipesystem.json.factory.DefaultObjectFactory;
+import com.teamacronymcoders.recipesystem.json.factory.IObjectFactory;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.eventhandler.GenericEvent;
+import net.minecraftforge.eventbus.api.GenericEvent;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Map;

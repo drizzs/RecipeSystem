@@ -1,15 +1,15 @@
-package com.teamacronymcoders.base.json.deserializer;
+package com.teamacronymcoders.recipesystem.json.deserializer;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.*;
-import com.teamacronymcoders.base.blocks.BlockStateMatcher;
+import com.teamacronymcoders.recipesystem.block.BlockStateMatcher;
 import net.minecraft.block.Block;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.util.JsonUtils;
+import net.minecraft.state.IProperty;
+import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraft.world.chunk.BlockStateContainer;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -20,7 +20,7 @@ public class BlockStateMatcherDeserializer implements JsonDeserializer<BlockStat
     public BlockStateMatcher deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         if (json != null && json.isJsonObject()) {
             JsonObject jsonObject = json.getAsJsonObject();
-            String blockName = JsonUtils.getString(jsonObject, "block");
+            String blockName = JSONUtils.getString(jsonObject, "block");
             Block block = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(blockName));
             if (block != null) {
                 if (jsonObject.has("properties")) {

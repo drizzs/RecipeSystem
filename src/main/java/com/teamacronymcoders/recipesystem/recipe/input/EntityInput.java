@@ -1,7 +1,7 @@
-package com.teamacronymcoders.base.recipesystem.input;
+package com.teamacronymcoders.recipesystem.recipe.input;
 
 import com.google.gson.annotations.JsonAdapter;
-import com.teamacronymcoders.base.json.deserializer.EntityClassDeserializer;
+import com.teamacronymcoders.recipesystem.json.deserializer.EntityClassDeserializer;
 import com.teamacronymcoders.recipesystem.recipe.RecipeContainer;
 import net.minecraft.entity.Entity;
 

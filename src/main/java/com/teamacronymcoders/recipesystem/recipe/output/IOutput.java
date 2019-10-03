@@ -1,4 +1,4 @@
-package com.teamacronymcoders.base.recipesystem.output;
+package com.teamacronymcoders.recipesystem.recipe.output;
 
 import com.teamacronymcoders.recipesystem.recipe.RecipeContainer;
 

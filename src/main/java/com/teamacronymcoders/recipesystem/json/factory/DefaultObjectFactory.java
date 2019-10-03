@@ -1,4 +1,4 @@
-package com.teamacronymcoders.base.json.factory;
+package com.teamacronymcoders.recipesystem.json.factory;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;

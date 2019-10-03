@@ -1,18 +1,19 @@
-package com.teamacronymcoders.base.recipesystem.loader;
+package com.teamacronymcoders.recipesystem.recipe.loader;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.*;
 import com.teamacronymcoders.base.Base;
-import com.teamacronymcoders.base.json.factory.IObjectFactory;
+import com.teamacronymcoders.recipesystem.json.factory.IObjectFactory;
 import com.teamacronymcoders.base.recipesystem.Recipe;
+import com.teamacronymcoders.recipesystem.recipe.Recipe;
 import com.teamacronymcoders.recipesystem.recipe.RecipeSystem;
 import com.teamacronymcoders.recipesystem.recipe.condition.ICondition;
 import com.teamacronymcoders.recipesystem.recipe.event.RegisterRecipeFactoriesEvent;
-import com.teamacronymcoders.base.recipesystem.input.IInput;
-import com.teamacronymcoders.base.recipesystem.output.IOutput;
-import com.teamacronymcoders.base.recipesystem.type.RecipeType;
-import net.minecraft.util.JsonUtils;
+import com.teamacronymcoders.recipesystem.recipe.input.IInput;
+import com.teamacronymcoders.recipesystem.recipe.output.IOutput;
+import com.teamacronymcoders.recipesystem.recipe.type.RecipeType;
+import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
@@ -69,7 +70,7 @@ public abstract class JsonRecipeLoader implements ILoader {
         ResourceLocation key = new ResourceLocation(ctx.getModId(), name);
 
         try (BufferedReader bufferedReader = Files.newBufferedReader(file)) {
-            JsonObject jsonObject = JsonUtils.fromJson(GSON, bufferedReader, JsonObject.class);
+            JsonObject jsonObject = JSONUtils.fromJson(GSON, bufferedReader, JsonObject.class);
             if (jsonObject != null) {
                 if (jsonObject.has("type")) {
                     String typeName = jsonObject.get("type").getAsString();
@@ -77,13 +78,13 @@ public abstract class JsonRecipeLoader implements ILoader {
                     if (recipeType != null) {
                         boolean loadRecipe = true;
                         if (jsonObject.has("load_conditions")) {
-                            loadRecipe = CraftingHelper.processConditions(JsonUtils.getJsonArray(jsonObject, "load_conditions"), ctx);
+                            loadRecipe = CraftingHelper.processConditions(JSONUtils.getJsonArray(jsonObject, "load_conditions"), ctx);
                         }
                         if (loadRecipe) {
-                            int priority = JsonUtils.getInt(jsonObject, "priority", 0);
-                            JsonArray inputsJson = JsonUtils.getJsonArray(jsonObject, "inputs");
-                            JsonArray outputsJson = JsonUtils.getJsonArray(jsonObject, "outputs");
-                            JsonArray conditionsJson = JsonUtils.getJsonArray(jsonObject, "conditions", new JsonArray());
+                            int priority = JSONUtils.getInt(jsonObject, "priority", 0);
+                            JsonArray inputsJson = JSONUtils.getJsonArray(jsonObject, "inputs");
+                            JsonArray outputsJson = JSONUtils.getJsonArray(jsonObject, "outputs");
+                            JsonArray conditionsJson = JSONUtils.getJsonArray(jsonObject, "conditions", new JsonArray());
 
                             List<IInput> inputList = processJsonArray(inputsJson, ctx, inputFactories::get, "Input");
                             List<IOutput> outputList = processOutputs(outputsJson, ctx);
@@ -111,7 +112,7 @@ public abstract class JsonRecipeLoader implements ILoader {
         for (JsonElement element : jsonElements) {
             if (element.isJsonObject()) {
                 JsonObject jsonObject = element.getAsJsonObject();
-                String typeName = JsonUtils.getString(jsonObject, "type");
+                String typeName = JSONUtils.getString(jsonObject, "type");
                 IObjectFactory<? extends T> factory = factoryFunction.apply(typeName);
                 jsonObject.remove("type");
                 if (factory != null) {

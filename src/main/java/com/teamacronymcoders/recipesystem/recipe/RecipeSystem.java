@@ -1,22 +1,19 @@
-package com.teamacronymcoders.base.recipesystem;
+package com.teamacronymcoders.recipesystem.recipe;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.teamacronymcoders.base.Base;
 import com.teamacronymcoders.base.command.CommandSubBase;
 import com.teamacronymcoders.base.event.BaseRegistryEvent;
-import com.teamacronymcoders.base.recipesystem.command.ReloadRecipesCommand;
-import com.teamacronymcoders.base.recipesystem.handler.IRecipeHandler;
-import com.teamacronymcoders.base.recipesystem.loader.ILoader;
-import com.teamacronymcoders.base.recipesystem.type.RecipeType;
-import net.minecraft.util.Tuple;
+import com.teamacronymcoders.recipesystem.recipe.command.ReloadRecipesCommand;
+import com.teamacronymcoders.recipesystem.recipe.loader.ILoader;
+import com.teamacronymcoders.recipesystem.recipe.type.RecipeType;
 import net.minecraftforge.common.MinecraftForge;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
 public class RecipeSystem {
     private final static Map<String, RecipeType> recipeTypes = Maps.newHashMap();

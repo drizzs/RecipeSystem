@@ -1,7 +1,7 @@
-package com.teamacronymcoders.base.recipesystem.output;
+package com.teamacronymcoders.recipesystem.recipe.output;
 
 import com.google.gson.annotations.JsonAdapter;
-import com.teamacronymcoders.base.json.deserializer.EntityFactoryDeserializer;
+import com.teamacronymcoders.recipesystem.json.deserializer.EntityFactoryDeserializer;
 import com.teamacronymcoders.recipesystem.recipe.RecipeContainer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
@@ -28,7 +28,7 @@ public class EntityOutput implements IOutput {
             Entity entity = this.entity.apply(recipeContainer.getWorld());
             BlockPos blockPos = recipeContainer.getPos();
             entity.setPosition(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-            recipeContainer.getWorld().spawnEntity(entity);
+            recipeContainer.getWorld().addEntity(entity);
         }
     }
 }

@@ -1,17 +1,17 @@
-package com.teamacronymcoders.base.recipesystem.output.json;
+package com.teamacronymcoders.recipesystem.recipe.output.json;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.teamacronymcoders.base.json.factory.IObjectFactory;
-import com.teamacronymcoders.base.recipesystem.loader.JsonRecipeLoader;
-import com.teamacronymcoders.base.recipesystem.output.OneOfOutput;
-import net.minecraft.util.JsonUtils;
+import com.teamacronymcoders.recipesystem.json.factory.IObjectFactory;
+import com.teamacronymcoders.recipesystem.recipe.loader.JsonRecipeLoader;
+import com.teamacronymcoders.recipesystem.recipe.output.OneOfOutput;
+import net.minecraft.util.JSONUtils;
 import net.minecraftforge.common.crafting.JsonContext;
 
 public class OneOfOutputFactory implements IObjectFactory<OneOfOutput> {
     @Override
     public OneOfOutput parse(JsonContext jsonContext, JsonElement jsonElement) {
-        JsonArray options = JsonUtils.getJsonArray(jsonElement.getAsJsonObject(), "options");
+        JsonArray options = JSONUtils.getJsonArray(jsonElement.getAsJsonObject(), "options");
         return new OneOfOutput(JsonRecipeLoader.processOutputs(options, jsonContext));
     }
 }

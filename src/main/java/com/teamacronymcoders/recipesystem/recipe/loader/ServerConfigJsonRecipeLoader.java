@@ -1,10 +1,11 @@
-package com.teamacronymcoders.base.recipesystem.loader;
+package com.teamacronymcoders.recipesystem.recipe.loader;
 
 import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.Base;
 import com.teamacronymcoders.base.recipesystem.Recipe;
-import com.teamacronymcoders.base.recipesystem.source.IRecipeSource;
-import com.teamacronymcoders.base.recipesystem.source.RecipeSource;
+import com.teamacronymcoders.recipesystem.recipe.Recipe;
+import com.teamacronymcoders.recipesystem.recipe.source.IRecipeSource;
+import com.teamacronymcoders.recipesystem.recipe.source.RecipeSource;
 import net.minecraftforge.common.crafting.JsonContext;
 import org.apache.commons.io.FilenameUtils;
 

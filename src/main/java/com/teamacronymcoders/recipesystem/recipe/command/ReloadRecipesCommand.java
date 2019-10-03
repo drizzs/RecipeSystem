@@ -1,15 +1,13 @@
-package com.teamacronymcoders.base.recipesystem.command;
+package com.teamacronymcoders.recipesystem.recipe.command;
 
-import com.teamacronymcoders.base.recipesystem.RecipeSystem;
-import net.minecraft.command.CommandBase;
-import net.minecraft.command.CommandException;
-import net.minecraft.command.ICommandSender;
+import com.teamacronymcoders.recipesystem.recipe.RecipeSystem;
+import net.minecraft.command.CommandSource;
 import net.minecraft.server.MinecraftServer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
-public class ReloadRecipesCommand extends CommandBase {
+public class ReloadRecipesCommand extends CommandSource {
     @Override
     @Nonnull
     public String getName() {

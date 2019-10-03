@@ -1,8 +1,8 @@
-package com.teamacronymcoders.base.recipesystem.handler;
+package com.teamacronymcoders.recipesystem.recipe.handler;
 
-import com.teamacronymcoders.base.recipesystem.Recipe;
+import com.teamacronymcoders.recipesystem.recipe.Recipe;
 import com.teamacronymcoders.recipesystem.recipe.RecipeContainer;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 import javax.annotation.Nullable;
 import java.util.Iterator;
@@ -10,6 +10,7 @@ import java.util.List;
 
 public class ClickedRecipeHandler implements IRecipeHandler {
     private final List<Recipe> recipes;
+
     private Recipe currentRecipe = null;
 
     public ClickedRecipeHandler(List<Recipe> recipes) {
@@ -17,7 +18,7 @@ public class ClickedRecipeHandler implements IRecipeHandler {
     }
 
     @Override
-    public boolean handleRecipe(RecipeContainer recipeContainer, @Nullable EntityPlayer entityPlayer) {
+    public boolean handleRecipe(RecipeContainer recipeContainer, @Nullable PlayerEntity entityPlayer) {
         if (currentRecipe != null) {
             if (!currentRecipe.matches(recipeContainer, entityPlayer)) {
                 currentRecipe = null;

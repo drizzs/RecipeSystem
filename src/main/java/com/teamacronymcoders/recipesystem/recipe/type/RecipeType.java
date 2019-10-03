@@ -1,9 +1,9 @@
-package com.teamacronymcoders.base.recipesystem.type;
+package com.teamacronymcoders.recipesystem.recipe.type;
 
 import com.google.common.collect.Lists;
 import com.teamacronymcoders.recipesystem.recipe.RecipeSystem;
-import com.teamacronymcoders.base.recipesystem.handler.DefaultRecipeHandler;
-import com.teamacronymcoders.base.recipesystem.handler.IRecipeHandler;
+import com.teamacronymcoders.recipesystem.recipe.handler.DefaultRecipeHandler;
+import com.teamacronymcoders.recipesystem.recipe.handler.IRecipeHandler;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.List;

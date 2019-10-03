@@ -1,11 +1,11 @@
-package com.teamacronymcoders.base.recipesystem;
+package com.teamacronymcoders.recipesystem.recipe;
 
-import com.teamacronymcoders.base.recipesystem.condition.ICondition;
-import com.teamacronymcoders.base.recipesystem.input.IInput;
-import com.teamacronymcoders.base.recipesystem.output.IOutput;
-import com.teamacronymcoders.base.recipesystem.source.IRecipeSource;
-import com.teamacronymcoders.base.recipesystem.type.RecipeType;
-import net.minecraft.entity.player.EntityPlayer;
+import com.teamacronymcoders.recipesystem.recipe.condition.ICondition;
+import com.teamacronymcoders.recipesystem.recipe.input.IInput;
+import com.teamacronymcoders.recipesystem.recipe.output.IOutput;
+import com.teamacronymcoders.recipesystem.recipe.source.IRecipeSource;
+import com.teamacronymcoders.recipesystem.recipe.type.RecipeType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.List;
@@ -29,7 +29,7 @@ public class Recipe {
         this.conditions = conditions;
     }
 
-    public boolean matches(RecipeContainer recipeContainer, EntityPlayer entityPlayer) {
+    public boolean matches(RecipeContainer recipeContainer, PlayerEntity entityPlayer) {
         return inputs.parallelStream().allMatch(input -> input.isMatched(recipeContainer))
                 && conditions.parallelStream().allMatch(condition -> condition.isMet(recipeContainer, entityPlayer));
     }

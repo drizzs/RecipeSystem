@@ -1,4 +1,4 @@
-package com.teamacronymcoders.base.recipesystem.output;
+package com.teamacronymcoders.recipesystem.recipe.output;
 
 import com.teamacronymcoders.recipesystem.recipe.RecipeContainer;
 import com.teamacronymcoders.recipesystem.recipe.command.RecipeSystemCommandSender;
@@ -20,7 +20,7 @@ public class CommandOutput implements IOutput {
 
     @Override
     public void output(RecipeContainer recipeContainer) {
-        Optional.ofNullable(recipeContainer.getWorld().getMinecraftServer())
+        Optional.ofNullable(recipeContainer.getWorld().getServer())
                 .map(MinecraftServer::getCommandManager)
                 .ifPresent(iCommandManager -> iCommandManager.executeCommand(new RecipeSystemCommandSender(recipeContainer), command));
     }

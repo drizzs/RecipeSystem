@@ -1,6 +1,6 @@
-package com.teamacronymcoders.base.recipesystem;
+package com.teamacronymcoders.recipesystem.recipe;
 
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
@@ -23,13 +23,13 @@ public  class RecipeContainer implements ICapabilityProvider {
     }
 
     @Override
-    public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
+    public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable Direction facing) {
         return capabilityProvider.hasCapability(capability, facing);
     }
 
     @Nullable
     @Override
-    public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
+    public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
         return capabilityProvider.getCapability(capability, facing);
     }
 

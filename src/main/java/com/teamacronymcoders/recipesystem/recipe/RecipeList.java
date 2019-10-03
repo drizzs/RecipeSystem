@@ -1,7 +1,7 @@
-package com.teamacronymcoders.base.recipesystem;
+package com.teamacronymcoders.recipesystem.recipe;
 
 import com.google.common.collect.ImmutableList;
-import com.teamacronymcoders.base.recipesystem.type.RecipeType;
+import com.teamacronymcoders.recipesystem.recipe.type.RecipeType;
 
 import java.util.List;
 

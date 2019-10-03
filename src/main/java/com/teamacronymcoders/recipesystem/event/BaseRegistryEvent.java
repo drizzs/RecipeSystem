@@ -1,9 +1,9 @@
-package com.teamacronymcoders.base.event;
+package com.teamacronymcoders.recipesystem.event;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.eventhandler.GenericEvent;
+import net.minecraftforge.eventbus.api.GenericEvent;
 
 import java.util.Map;
 

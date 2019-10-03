@@ -1,7 +1,6 @@
-package com.teamacronymcoders.base.json.factory;
+package com.teamacronymcoders.recipesystem.json.factory;
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
 import net.minecraftforge.common.crafting.JsonContext;
 
 public interface IObjectFactory<T> {

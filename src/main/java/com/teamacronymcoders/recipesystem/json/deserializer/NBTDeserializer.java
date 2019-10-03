@@ -1,31 +1,29 @@
-package com.teamacronymcoders.base.json.deserializer;
+package com.teamacronymcoders.recipesystem.json.deserializer;
 
 import com.google.gson.*;
-import com.google.gson.annotations.JsonAdapter;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagLongArray;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.LongArrayNBT;
 
 import java.lang.reflect.Type;
 import java.util.Map;
 
-public class NBTDeserializer implements JsonDeserializer<NBTTagCompound> {
+public class NBTDeserializer implements JsonDeserializer<CompoundNBT> {
     @Override
-    public NBTTagCompound deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public CompoundNBT deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         if (json.isJsonObject()) {
             return parseObject(json.getAsJsonObject());
         }
         throw new JsonParseException("NBT is required to be an object");
     }
 
-    private NBTTagCompound parseObject(JsonObject json) {
-        NBTTagCompound tagCompound = new NBTTagCompound();
+    private CompoundNBT parseObject(JsonObject json) {
+        CompoundNBT tagCompound = new CompoundNBT();
 
         for (Map.Entry<String, JsonElement> property : json.entrySet()) {
             String name = property.getKey();
             JsonElement jsonElement = property.getValue();
             if (jsonElement.isJsonObject()) {
-                tagCompound.setTag(name, parseObject(json));
+                tagCompound.put(name, parseObject(json));
             } else if (json.isJsonArray()) {
                 handleJsonArray(tagCompound, name, jsonElement.getAsJsonArray());
             } else if (json.isJsonPrimitive()) {
@@ -35,30 +33,30 @@ public class NBTDeserializer implements JsonDeserializer<NBTTagCompound> {
         return tagCompound;
     }
 
-    private void handleJsonPrimitive(NBTTagCompound tagCompound, String propertyName, JsonPrimitive jsonPrimitive) {
+    private void handleJsonPrimitive(CompoundNBT tagCompound, String propertyName, JsonPrimitive jsonPrimitive) {
         if (jsonPrimitive.isBoolean()) {
-            tagCompound.setBoolean(propertyName, jsonPrimitive.getAsBoolean());
+            tagCompound.putBoolean(propertyName, jsonPrimitive.getAsBoolean());
         } else if (jsonPrimitive.isString()) {
-            tagCompound.setString(propertyName, jsonPrimitive.getAsString());
+            tagCompound.putString(propertyName, jsonPrimitive.getAsString());
         } else if (jsonPrimitive.isNumber()) {
             Number number = jsonPrimitive.getAsNumber();
             if (number instanceof Long) {
-                tagCompound.setLong(propertyName, number.longValue());
+                tagCompound.putLong(propertyName, number.longValue());
             } else if (number instanceof Integer) {
-                tagCompound.setInteger(propertyName, number.intValue());
+                tagCompound.putInt(propertyName, number.intValue());
             } else if (number instanceof Short) {
-                tagCompound.setShort(propertyName, number.shortValue());
+                tagCompound.putShort(propertyName, number.shortValue());
             } else if (number instanceof Double) {
-                tagCompound.setDouble(propertyName, number.doubleValue());
+                tagCompound.putDouble(propertyName, number.doubleValue());
             } else if (number instanceof Byte) {
-                tagCompound.setByte(propertyName, number.byteValue());
+                tagCompound.putByte(propertyName, number.byteValue());
             } else if (number instanceof Float) {
-                tagCompound.setFloat(propertyName, number.floatValue());
+                tagCompound.putFloat(propertyName, number.floatValue());
             }
         }
     }
 
-    private void handleJsonArray(NBTTagCompound tagCompound, String propertyName, JsonArray jsonArray) {
+    private void handleJsonArray(CompoundNBT tagCompound, String propertyName, JsonArray jsonArray) {
         boolean allLongs = true;
         boolean allInts = true;
         boolean allBytes = true;
@@ -99,27 +97,27 @@ public class NBTDeserializer implements JsonDeserializer<NBTTagCompound> {
         }
     }
 
-    private void handleJsonByteArray(NBTTagCompound tagCompound, String propertyName, JsonArray jsonArray) {
+    private void handleJsonByteArray(CompoundNBT tagCompound, String propertyName, JsonArray jsonArray) {
         byte[] byteArray = new byte[jsonArray.size()];
         for (int i = 0; i < jsonArray.size(); i++) {
             byteArray[i] = jsonArray.get(i).getAsJsonPrimitive().getAsByte();
         }
-        tagCompound.setByteArray(propertyName, byteArray);
+        tagCompound.putByteArray(propertyName, byteArray);
     }
 
-    private void handleJsonIntArray(NBTTagCompound tagCompound, String propertyName, JsonArray jsonArray) {
+    private void handleJsonIntArray(CompoundNBT tagCompound, String propertyName, JsonArray jsonArray) {
         int[] intArray = new int[jsonArray.size()];
         for (int i = 0; i < jsonArray.size(); i++) {
             intArray[i] = jsonArray.get(i).getAsJsonPrimitive().getAsInt();
         }
-        tagCompound.setIntArray(propertyName, intArray);
+        tagCompound.putIntArray(propertyName, intArray);
     }
 
-    private void handleJsonLongArray(NBTTagCompound tagCompound, String propertyName, JsonArray jsonArray) {
+    private void handleJsonLongArray(CompoundNBT tagCompound, String propertyName, JsonArray jsonArray) {
         long[] longArray = new long[jsonArray.size()];
         for (int i = 0; i < jsonArray.size(); i++) {
             longArray[i] = jsonArray.get(i).getAsJsonPrimitive().getAsLong();
         }
-        tagCompound.setTag(propertyName, new NBTTagLongArray(longArray));
+        tagCompound.put(propertyName, new LongArrayNBT(longArray));
     }
 }

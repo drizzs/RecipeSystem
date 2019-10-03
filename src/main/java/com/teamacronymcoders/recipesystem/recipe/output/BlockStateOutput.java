@@ -1,24 +1,24 @@
-package com.teamacronymcoders.base.recipesystem.output;
+package com.teamacronymcoders.recipesystem.recipe.output;
 
 import com.google.gson.annotations.JsonAdapter;
-import com.teamacronymcoders.base.json.deserializer.BlockPosDeserializer;
-import com.teamacronymcoders.base.json.deserializer.BlockStateDeserializer;
-import com.teamacronymcoders.base.json.deserializer.NBTDeserializer;
+import com.teamacronymcoders.recipesystem.json.deserializer.BlockPosDeserializer;
+import com.teamacronymcoders.recipesystem.json.deserializer.BlockStateDeserializer;
+import com.teamacronymcoders.recipesystem.json.deserializer.NBTDeserializer;
 import com.teamacronymcoders.recipesystem.recipe.RecipeContainer;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.block.BlockState;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 
 public class BlockStateOutput implements IOutput {
     @JsonAdapter(value = BlockStateDeserializer.class)
-    private final IBlockState blockState;
+    private final BlockState blockState;
     @JsonAdapter(value = BlockPosDeserializer.class)
     private final BlockPos offset;
     @JsonAdapter(value = NBTDeserializer.class)
-    private final NBTTagCompound tileEntityNBT;
+    private final CompoundNBT tileEntityNBT;
 
-    public BlockStateOutput(IBlockState blockState, BlockPos offset, NBTTagCompound tileEntityNBT) {
+    public BlockStateOutput(BlockState blockState, BlockPos offset, CompoundNBT tileEntityNBT) {
         this.blockState = blockState;
         this.offset = offset;
         this.tileEntityNBT = tileEntityNBT;
@@ -36,15 +36,15 @@ public class BlockStateOutput implements IOutput {
         if (tileEntityNBT != null && !tileEntityNBT.isEmpty()) {
             TileEntity tileEntity = recipeContainer.getWorld().getTileEntity(pos);
             if (tileEntity != null) {
-                NBTTagCompound currentNBT = tileEntity.writeToNBT(new NBTTagCompound());
-                NBTTagCompound originalNBT = currentNBT.copy();
+                CompoundNBT currentNBT = tileEntity.write(new CompoundNBT());
+                CompoundNBT originalNBT = currentNBT.copy();
                 currentNBT.merge(tileEntityNBT.copy());
-                currentNBT.setInteger("x", pos.getX());
-                currentNBT.setInteger("y", pos.getY());
-                currentNBT.setInteger("z", pos.getZ());
+                currentNBT.putInt("x", pos.getX());
+                currentNBT.putInt("y", pos.getY());
+                currentNBT.putInt("z", pos.getZ());
 
                 if (!currentNBT.equals(originalNBT)) {
-                    tileEntity.readFromNBT(currentNBT);
+                    tileEntity.read(currentNBT);
                     tileEntity.markDirty();
                 }
             }

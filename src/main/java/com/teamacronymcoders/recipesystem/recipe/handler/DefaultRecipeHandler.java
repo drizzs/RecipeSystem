@@ -1,8 +1,9 @@
-package com.teamacronymcoders.base.recipesystem.handler;
+package com.teamacronymcoders.recipesystem.recipe.handler;
 
-import com.teamacronymcoders.base.recipesystem.Recipe;
+
+import com.teamacronymcoders.recipesystem.recipe.Recipe;
 import com.teamacronymcoders.recipesystem.recipe.RecipeContainer;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 import javax.annotation.Nullable;
 import java.util.Iterator;
@@ -18,7 +19,7 @@ public class DefaultRecipeHandler implements IRecipeHandler {
     }
 
     @Override
-    public boolean handleRecipe(RecipeContainer recipeContainer, @Nullable EntityPlayer entityPlayer) {
+    public boolean handleRecipe(RecipeContainer recipeContainer, @Nullable PlayerEntity entityPlayer) {
         if (waiting > 0) {
             waiting--;
         }
