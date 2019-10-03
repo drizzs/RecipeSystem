@@ -4,6 +4,7 @@ import com.google.gson.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.IProperty;
+import net.minecraft.state.StateContainer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.chunk.BlockStateContainer;
@@ -21,11 +22,11 @@ public class BlockStateDeserializer implements JsonDeserializer<BlockState> {
             Block block = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(blockName));
             if (block != null) {
                 if (jsonObject.has("properties")) {
-                    BlockStateContainer blockStateContainer = block.getBlockState();
+                    StateContainer stateContainer = block.getStateContainer();
                     BlockState blockState = block.getDefaultState();
                     JsonObject properties = jsonObject.getAsJsonObject("properties");
                     for (Map.Entry<String, JsonElement> entry : properties.entrySet()) {
-                        IProperty<?> property = blockStateContainer.getProperty(entry.getKey());
+                        IProperty<?> property = stateContainer.getProperty(entry.getKey());
                         if (property != null) {
                             blockState = setValueHelper(blockState, property, entry.getValue().getAsString());
                         } else {

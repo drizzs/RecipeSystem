@@ -5,6 +5,7 @@ import com.google.common.collect.Maps;
 import com.teamacronymcoders.base.Base;
 import com.teamacronymcoders.base.command.CommandSubBase;
 import com.teamacronymcoders.base.event.BaseRegistryEvent;
+import com.teamacronymcoders.recipesystem.event.BaseRegistryEvent;
 import com.teamacronymcoders.recipesystem.recipe.command.ReloadRecipesCommand;
 import com.teamacronymcoders.recipesystem.recipe.loader.ILoader;
 import com.teamacronymcoders.recipesystem.recipe.type.RecipeType;
@@ -15,7 +16,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-public class RecipeSystem {
+public class Recipes {
     private final static Map<String, RecipeType> recipeTypes = Maps.newHashMap();
     private final static Map<RecipeType, List<Recipe>> recipeLists = Maps.newHashMap();
     private final static Map<String, ILoader> loaders = Maps.newHashMap();
@@ -43,7 +44,7 @@ public class RecipeSystem {
                 });
 
         recipeTypes.values().parallelStream()
-                .forEach(RecipeSystem::handleRecipeType);
+                .forEach(Recipes::handleRecipeType);
     }
 
     private static void handleRecipeType(RecipeType recipeType) {

@@ -1,6 +1,6 @@
 package com.teamacronymcoders.recipesystem.recipe.loader;
 
-import com.teamacronymcoders.base.recipesystem.Recipe;
+
 import com.teamacronymcoders.recipesystem.recipe.Recipe;
 import com.teamacronymcoders.recipesystem.recipe.source.IRecipeSource;
 

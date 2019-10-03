@@ -1,7 +1,7 @@
 package com.teamacronymcoders.recipesystem.recipe.type;
 
 import com.google.common.collect.Lists;
-import com.teamacronymcoders.recipesystem.recipe.RecipeSystem;
+import com.teamacronymcoders.recipesystem.recipe.Recipes;
 import com.teamacronymcoders.recipesystem.recipe.handler.DefaultRecipeHandler;
 import com.teamacronymcoders.recipesystem.recipe.handler.IRecipeHandler;
 import net.minecraft.util.ResourceLocation;
@@ -18,7 +18,7 @@ public class RecipeType {
     }
 
     public IRecipeHandler createHandler() {
-        return new DefaultRecipeHandler(RecipeSystem.getRecipesFor(this));
+        return new DefaultRecipeHandler(Recipes.getRecipesFor(this));
     }
 
     public List<IRecipeHandler> getRecipeHandlers() {

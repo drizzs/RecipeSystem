@@ -1,6 +1,7 @@
 package com.teamacronymcoders.recipesystem.utils;
 
 
+import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
@@ -14,7 +15,7 @@ public class CapUtils {
     }
 
     @Nullable
-    public static <T> T get(ICapabilityProvider provider, Capability<T> capability, @Nullable EnumFacing facing) {
+    public static <T> T get(ICapabilityProvider provider, Capability<T> capability, @Nullable Direction facing) {
         return provider.hasCapability(capability, facing) ? provider.getCapability(capability, facing) : null;
     }
 

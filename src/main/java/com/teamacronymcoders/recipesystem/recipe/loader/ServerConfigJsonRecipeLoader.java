@@ -1,12 +1,9 @@
 package com.teamacronymcoders.recipesystem.recipe.loader;
 
 import com.google.common.collect.Lists;
-import com.teamacronymcoders.base.Base;
-import com.teamacronymcoders.base.recipesystem.Recipe;
 import com.teamacronymcoders.recipesystem.recipe.Recipe;
 import com.teamacronymcoders.recipesystem.recipe.source.IRecipeSource;
 import com.teamacronymcoders.recipesystem.recipe.source.RecipeSource;
-import net.minecraftforge.common.crafting.JsonContext;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
@@ -43,14 +40,13 @@ public class ServerConfigJsonRecipeLoader extends JsonRecipeLoader {
                 for (File modFolder : modFolders) {
                     File recipesFolder = new File(modFolder, "base/recipe_system");
                     if (recipesFolder.exists()) {
-                        JsonContext jsonContext = new JsonContext(modFolder.getName());
                         Path root = Paths.get(recipesFolder.getPath());
                         File[] recipeJsons = recipesFolder.listFiles(file ->
                                 FilenameUtils.getExtension(file.getName()).equals("json"));
                         if (recipeJsons != null) {
                             for (File recipeJson : recipeJsons) {
                                 Path file = Paths.get(recipeJson.getPath());
-                                Optional.ofNullable(this.loadRecipe(jsonContext, root, file))
+                                Optional.ofNullable(this.loadRecipe(root, file))
                                         .ifPresent(recipes::add);
                             }
                         }

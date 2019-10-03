@@ -1,6 +1,6 @@
 package com.teamacronymcoders.recipesystem.recipe.type;
 
-import com.teamacronymcoders.recipesystem.recipe.RecipeSystem;
+import com.teamacronymcoders.recipesystem.recipe.Recipes;
 import com.teamacronymcoders.recipesystem.recipe.handler.ClickedRecipeHandler;
 import com.teamacronymcoders.recipesystem.recipe.handler.IRecipeHandler;
 import net.minecraft.util.ResourceLocation;
@@ -12,6 +12,6 @@ public class ClickRecipeType extends RecipeType {
 
     @Override
     public IRecipeHandler createHandler() {
-        return new ClickedRecipeHandler(RecipeSystem.getRecipesFor(this));
+        return new ClickedRecipeHandler(Recipes.getRecipesFor(this));
     }
 }

@@ -1,7 +1,7 @@
 package com.teamacronymcoders.recipesystem.recipe.event;
 
 import com.teamacronymcoders.recipesystem.event.BaseRegistryEvent;
-import com.teamacronymcoders.recipesystem.recipe.RecipeSystem;
+import com.teamacronymcoders.recipesystem.recipe.Recipes;
 import com.teamacronymcoders.recipesystem.recipe.condition.BiomeCondition;
 import com.teamacronymcoders.recipesystem.recipe.condition.ICondition;
 import com.teamacronymcoders.recipesystem.recipe.condition.VillageCondition;
@@ -26,8 +26,8 @@ import static com.teamacronymcoders.recipesystem.RecipeSystem.MOD_ID;
 public class RecipeSystemEventHandler {
     @SubscribeEvent
     public static void registerRecipes(RegistryEvent<IRecipeSerializer<?>> recipeRegistryEvent) {
-        RecipeSystem.loadRecipeTypes();
-        RecipeSystem.loadRecipes(false);
+        Recipes.loadRecipeTypes();
+        Recipes.loadRecipes(false);
     }
 
     @SubscribeEvent

@@ -1,6 +1,6 @@
 package com.teamacronymcoders.recipesystem.recipe.command;
 
-import com.teamacronymcoders.recipesystem.recipe.RecipeSystem;
+import com.teamacronymcoders.recipesystem.recipe.Recipes;
 import net.minecraft.command.CommandSource;
 import net.minecraft.server.MinecraftServer;
 
@@ -24,6 +24,6 @@ public class ReloadRecipesCommand extends CommandSource {
     @Override
     @ParametersAreNonnullByDefault
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
-        RecipeSystem.reloadRecipe();
+        Recipes.reloadRecipe();
     }
 }

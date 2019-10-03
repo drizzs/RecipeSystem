@@ -21,7 +21,7 @@ public class EntityInput implements IInput {
     @Override
     public void consume(RecipeContainer recipeContainer) {
         if (recipeContainer.getRecipeHolder().getClass().isAssignableFrom(entity)) {
-            ((Entity) recipeContainer.getRecipeHolder()).setDead();
+            ((Entity) recipeContainer.getRecipeHolder()).remove();
         }
     }
 }

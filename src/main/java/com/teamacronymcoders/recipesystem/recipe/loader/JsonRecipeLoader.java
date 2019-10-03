@@ -3,11 +3,11 @@ package com.teamacronymcoders.recipesystem.recipe.loader;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.*;
-import com.teamacronymcoders.base.Base;
+import com.teamacronymcoders.recipesystem.RecipeSystem;
+import com.teamacronymcoders.recipesystem.json.JsonContext;
 import com.teamacronymcoders.recipesystem.json.factory.IObjectFactory;
-import com.teamacronymcoders.base.recipesystem.Recipe;
 import com.teamacronymcoders.recipesystem.recipe.Recipe;
-import com.teamacronymcoders.recipesystem.recipe.RecipeSystem;
+import com.teamacronymcoders.recipesystem.recipe.Recipes;
 import com.teamacronymcoders.recipesystem.recipe.condition.ICondition;
 import com.teamacronymcoders.recipesystem.recipe.event.RegisterRecipeFactoriesEvent;
 import com.teamacronymcoders.recipesystem.recipe.input.IInput;
@@ -17,7 +17,6 @@ import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.crafting.JsonContext;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.BufferedReader;
@@ -60,25 +59,27 @@ public abstract class JsonRecipeLoader implements ILoader {
     @Override
     public abstract List<Recipe> loadRecipes();
 
-    protected Recipe loadRecipe(JsonContext ctx, Path root, Path file) {
+    protected Recipe loadRecipe(Path root, Path file) {
+        JsonContext context = null;
+        String modId = context.getModId();
         String relative = root.relativize(file).toString();
         if (!"json".equals(FilenameUtils.getExtension(file.toString())) || relative.startsWith("_")) {
             return null;
         }
 
         String name = FilenameUtils.removeExtension(relative).replaceAll("\\\\", "/");
-        ResourceLocation key = new ResourceLocation(ctx.getModId(), name);
+        ResourceLocation key = new ResourceLocation(modId, name);
 
         try (BufferedReader bufferedReader = Files.newBufferedReader(file)) {
             JsonObject jsonObject = JSONUtils.fromJson(GSON, bufferedReader, JsonObject.class);
             if (jsonObject != null) {
                 if (jsonObject.has("type")) {
                     String typeName = jsonObject.get("type").getAsString();
-                    RecipeType recipeType = RecipeSystem.getRecipeType(typeName);
+                    RecipeType recipeType = Recipes.getRecipeType(typeName);
                     if (recipeType != null) {
                         boolean loadRecipe = true;
                         if (jsonObject.has("load_conditions")) {
-                            loadRecipe = CraftingHelper.processConditions(JSONUtils.getJsonArray(jsonObject, "load_conditions"), ctx);
+                            loadRecipe = CraftingHelper.processConditions(JSONUtils.getJsonArray(jsonObject, "load_conditions"));
                         }
                         if (loadRecipe) {
                             int priority = JSONUtils.getInt(jsonObject, "priority", 0);
@@ -86,9 +87,9 @@ public abstract class JsonRecipeLoader implements ILoader {
                             JsonArray outputsJson = JSONUtils.getJsonArray(jsonObject, "outputs");
                             JsonArray conditionsJson = JSONUtils.getJsonArray(jsonObject, "conditions", new JsonArray());
 
-                            List<IInput> inputList = processJsonArray(inputsJson, ctx, inputFactories::get, "Input");
-                            List<IOutput> outputList = processOutputs(outputsJson, ctx);
-                            List<ICondition> conditionList = processJsonArray(conditionsJson, ctx, conditionFactories::get, "Conditions");
+                            List<IInput> inputList = processJsonArray(inputsJson, inputFactories::get, "Input");
+                            List<IOutput> outputList = processOutputs(outputsJson);
+                            List<ICondition> conditionList = processJsonArray(conditionsJson, conditionFactories::get, "Conditions");
 
                             return new Recipe(key, priority, this.getRecipeSource(), recipeType, inputList, outputList, conditionList);
                         }
@@ -98,16 +99,16 @@ public abstract class JsonRecipeLoader implements ILoader {
                 }
             }
         } catch (IOException | JsonParseException e) {
-            Base.instance.getLogger().getLogger().warn("Error in recipe: " + key.toString(), e);
+            RecipeSystem.LOGGER.info("Error in recipe: " + key.toString(), e);
         }
         return null;
     }
 
-    public static List<IOutput> processOutputs(JsonArray jsonElements, JsonContext context) {
-        return processJsonArray(jsonElements, context, outputFactories::get, "Output");
+    public static List<IOutput> processOutputs(JsonArray jsonElements) {
+        return processJsonArray(jsonElements, outputFactories::get, "Output");
     }
 
-    private static <T> List<T> processJsonArray(JsonArray jsonElements, JsonContext context, Function<String, IObjectFactory<? extends T>> factoryFunction, String name) {
+    private static <T> List<T> processJsonArray(JsonArray jsonElements, Function<String, IObjectFactory<? extends T>> factoryFunction, String name) {
         List<T> processedList = Lists.newArrayList();
         for (JsonElement element : jsonElements) {
             if (element.isJsonObject()) {
@@ -116,7 +117,7 @@ public abstract class JsonRecipeLoader implements ILoader {
                 IObjectFactory<? extends T> factory = factoryFunction.apply(typeName);
                 jsonObject.remove("type");
                 if (factory != null) {
-                    processedList.add(factory.parse(context, jsonObject));
+                    processedList.add(factory.parse(jsonObject));
                 } else {
                     throw new JsonParseException("No " + name + " found for type: " + typeName);
                 }
