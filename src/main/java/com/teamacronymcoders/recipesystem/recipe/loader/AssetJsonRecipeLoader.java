@@ -41,7 +41,6 @@ public class AssetJsonRecipeLoader extends JsonRecipeLoader {
     }
 
     private List<Recipe> loadRecipesForMod(ModContainer mod) {
-        JsonContext ctx = new JsonContext(mod.getModId());
         List<Recipe> recipes = Lists.newArrayList();
 
         CraftingHelper.getCondition(mod, "assets/" + mod.getModId() + "/base/recipe_system",
